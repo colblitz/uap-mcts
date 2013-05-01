@@ -490,6 +490,7 @@ bool GoUctPlayoutPolicy<BOARD>::GenerateLowLibMove(SgPoint lastMove)
     return ! m_moves.IsEmpty();
 }
 
+
 template<class BOARD>
 SG_ATTR_FLATTEN SgPoint GoUctPlayoutPolicy<BOARD>::GenerateMove()
 {
@@ -498,7 +499,7 @@ SG_ATTR_FLATTEN SgPoint GoUctPlayoutPolicy<BOARD>::GenerateMove()
 
     SgPoint mv = SG_NULLMOVE;
 
-    if (m_param.m_fillboardTries > 0)
+    if (m_param.m_fillboardTries > 0 && m_bd.ToPlay() == SG_WHITE )
     {
         m_moveType = GOUCT_FILLBOARD;
         mv = m_pureRandomGenerator.GenerateFillboardMove(

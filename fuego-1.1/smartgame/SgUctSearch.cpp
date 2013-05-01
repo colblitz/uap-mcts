@@ -5,6 +5,7 @@
 #include "SgSystem.h"
 #include "SgUctSearch.h"
 
+#include <iostream>
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
@@ -473,6 +474,9 @@ const SgUctNode*
 SgUctSearch::FindBestChild(const SgUctNode& node,
                            const vector<SgMove>* excludeMoves) const
 {
+    SgDebug() << "cccccasdf" << endl;
+    cout << "aaaaasdf" << endl;
+    cerr << "bbbbbsdf" << endl;
     if (! node.HasChildren())
         return 0;
     const SgUctNode* bestChild = 0;

@@ -168,6 +168,8 @@ public:
 
     SgBlackWhite GetStone(SgPoint p) const;
 
+    int DistanceToColor(SgPoint p, SgBlackWhite c) const;
+
     /** %Player whose turn it is to play. */
     SgBlackWhite ToPlay() const;
 

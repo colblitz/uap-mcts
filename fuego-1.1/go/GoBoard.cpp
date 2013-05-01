@@ -8,6 +8,8 @@
 
 #include <boost/static_assert.hpp>
 #include <algorithm>
+#include <set>
+#include <queue>
 #include "GoInit.h"
 #include "SgNbIterator.h"
 #include "SgStack.h"
@@ -54,6 +56,48 @@ GoBoard::~GoBoard()
     m_blockList = 0;
     delete m_moves;
     m_moves = 0;
+}
+
+int GoBoard::DistanceToColor(SgPoint p, SgBlackWhite c) const
+{
+    std::set<SgPoint> seen;
+    std::queue<SgPoint> edge;
+    edge.push(p);
+    seen.insert(p);
+    SgPoint closest = SG_NULLPOINT;
+    while ( !edge.empty() ) {
+      SgPoint current = edge.front();
+      edge.pop();
+      if ( IsColor(current, c) ){
+        closest = current;
+      } else {
+        SgPoint neighborN = current + SG_NS;
+        if ( SgPointUtil::InBoardRange(neighborN) && seen.find(neighborN) != seen.end() ) {
+          edge.push(neighborN);
+          seen.insert(neighborN);
+        }
+        SgPoint neighborS = current - SG_NS;
+        if ( SgPointUtil::InBoardRange(neighborS) && seen.find(neighborS) != seen.end() ) {
+          edge.push(neighborS);
+          seen.insert(neighborS);
+        }
+        SgPoint neighborE = current + SG_WE;
+        if ( SgPointUtil::InBoardRange(neighborE) && seen.find(neighborE) != seen.end() ) {
+          edge.push(neighborE);
+          seen.insert(neighborE);
+        }
+        SgPoint neighborW = current - SG_WE;
+        if ( SgPointUtil::InBoardRange(neighborW) && seen.find(neighborW) != seen.end() ) {
+          edge.push(neighborW);
+          seen.insert(neighborW);
+        }
+      }
+    }
+    if ( closest == SG_NULLPOINT ) {
+      return m_size*2;
+    } else {
+      return SgPointUtil::Distance(closest, p);
+    }
 }
 
 void GoBoard::CheckConsistency() const

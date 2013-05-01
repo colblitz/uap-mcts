@@ -117,8 +117,10 @@ void ParseOptions(int argc, char** argv)
         g_noBook = true;
     if (vm.count("nohandicap"))
         g_noHandicap = true;
+    g_quiet = false;
     if (vm.count("quiet"))
         g_quiet = true;
+
 }
 
 void PrintStartupMessage()

@@ -1,0 +1,7 @@
+run export LD_LIBRARY_PATH=/usr/local/boost_1_47_0/stage/lib
+
+uct_param_search
+ - rave (bool)
+ - max_nodes (size_t)
+ - number_playouts (int)
+ - move_select (1, 2, 3, 4?)
